@@ -1,34 +1,27 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
+import NumberLauncher from '../controllers/numberLauncher'
 import {setResponsiveWidth} from '../utils'
 
 export default class extends Phaser.State {
-  init () {}
-  preload () {}
-
-  create () {
-    let banner = this.add.text(this.game.world.centerX, this.game.height - 30, 'Phaser + ES6 + Webpack')
-    banner.font = 'Nunito'
-    banner.fontSize = 40
-    banner.fill = '#77BFA3'
-    banner.anchor.setTo(0.5)
-
-    this.mushroom = new Mushroom({
-      game: this.game,
-      x: this.game.world.centerX,
-      y: this.game.world.centerY,
-      asset: 'mushroom'
-    })
-
-    // set the sprite width to 30% of the game width
-    setResponsiveWidth(this.mushroom, 30, this.game.world)
-    this.game.add.existing(this.mushroom)
-  }
-
-  render () {
-    if (__DEV__) {
-      this.game.debug.spriteInfo(this.mushroom, 32, 32)
+    init() {}
+    preload () {
     }
-  }
+
+    create() {
+        this.game.add.image(0, 0, 'background');
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.arcade.gravity.y = 800;
+        this.numberLauncher = new NumberLauncher({
+            game: this.game
+        });
+    }
+
+    update() {
+        this.numberLauncher.update();
+    }
+
+    getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 }
