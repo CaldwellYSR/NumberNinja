@@ -11,7 +11,7 @@ export default class extends Phaser.State {
     create() {
         this.game.add.image(0, 0, 'background');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.game.physics.arcade.gravity.y = 800;
+        this.game.physics.arcade.gravity.y = 200;
         this.numberLauncher = new NumberLauncher({
             game: this.game
         });
